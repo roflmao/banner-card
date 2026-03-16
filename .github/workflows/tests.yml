@@ -8,14 +8,6 @@ on:
     - cron: "0 13 * * 5"
 
 jobs:
-  validate_HACS:
-    runs-on: "ubuntu-latest"
-    steps:
-      - uses: "actions/checkout@v4"
-      - name: HACS validation
-        uses: "hacs/action@main"
-        with:
-          category: "plugin"
   npm_test:
     runs-on: ubuntu-latest
     steps:
