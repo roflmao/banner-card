@@ -374,13 +374,13 @@ class BannerCard extends LitElement {
   }
 
   renderAsToggle({ onClick, size, name, state, domain, entity, color }) {
-    color = color ? color : "var(--switch-checked-color)";
+    const switchStyle = color ? `--switch-checked-color: ${color};` : "";
     return html`
       <div class="entity-state" style="${this.grid(size)}">
         ${entityName(name, onClick)}
         <span class="entity-value">
           <ha-switch
-            style="--switch-checked-color: ${color};"
+            style="${switchStyle}"
             ?checked=${state === "on"}
             @change=${this._service(domain, "toggle", entity)}
           >
