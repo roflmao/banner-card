@@ -1,5 +1,7 @@
 # Lovelace banner card fork
 
+**2026-03-16 Update**: Updated for compatibility with latest Home Assistant frontend. Migrated from legacy `lit-element` v2 to `lit` v3, fixed the `ha-icon-button` component (HA removed the `icon` attribute in 2023.x), replaced deprecated `hass:` icon prefix with `mdi:`, fixed `ha-switch` event handling, added `getGridOptions()` for sections view support, and modernized the build toolchain (Rollup v4, ES module output).
+
 **2022-04-15 Update**: Home Assistant 2022.3 made some UI changes ([GitHub Issue](https://github.com/nervetattoo/banner-card/issues/139) | [HA Blog](https://www.home-assistant.io/blog/2022/03/02/release-20223/#ui-upgrades)) that broke previous versions of this integration. The solutions generally accepted in the GitHub issue was to make a number of changes manually which I wasn't interested, and @matteocorti had [submitted a yet to be merged PR](https://github.com/nervetattoo/banner-card/pull/140). This fork integrates those changes and can easily be installed via the HACS UI without any manual effort.
 
 ---
@@ -12,11 +14,19 @@ A fluffy linkable banner with interactive glances to spice up your home dashboar
 
 ## Installation
 
-[`Try HACS first`](https://hacs.xyz/)
+### HACS (recommended)
 
-1. Download the `banner-card.js` from the [latest release](https://github.com/nervetattoo/banner-card/releases/latest) and store it in your `configuration/www` folder.
-   _Previously you could download the source file from Github but starting from the 0.14 release that is no longer possible. If you try to do so it will crash_
-2. Configure Lovelace to load the card:
+1. Open HACS in your Home Assistant instance
+2. Go to **Frontend** → click the three dots menu (top right) → **Custom repositories**
+3. Add `https://github.com/roflmao/banner-card` with category **Lovelace**
+4. Search for "Banner Card" in HACS and install it
+5. Restart Home Assistant
+
+### Manual
+
+1. Download `banner-card.js` from the [latest release](https://github.com/roflmao/banner-card/releases/latest)
+2. Copy it to your `config/www/` folder
+3. Add the resource in **Settings** → **Dashboards** → **Resources** (or in your Lovelace YAML config):
 
 ```yaml
 resources:

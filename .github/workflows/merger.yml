@@ -7,13 +7,13 @@ on:
 jobs:
   format-merge:
     runs-on: ubuntu-latest
-    steps:          
+    steps:
       - uses: zwaldowski/match-label-action@v3
         id: label
         with:
           allowed: >
             lgtm
-        
+
       - uses: actions/checkout@v3
         if: steps.label.outputs.match == 'lgtm'
 
@@ -21,7 +21,7 @@ jobs:
         if: steps.label.outputs.match == 'lgtm'
         uses: actions/setup-node@v3
         with:
-          node-version: 12.x
+          node-version: 20.x
 
       - name: Install
         if: steps.label.outputs.match == 'lgtm'
@@ -30,7 +30,7 @@ jobs:
       - name: Run prettier
         if: steps.label.outputs.match == 'lgtm'
         run: yarn run prettier --write 'src/**/*.js'
-   
+
       - uses: stefanzweifel/git-auto-commit-action@v4.14.1
         if: steps.label.outputs.match == 'lgtm'
         with:
@@ -38,7 +38,7 @@ jobs:
           branch: ${{ github.ref }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        
+
       - uses: maxkomarychev/merge-pal-action@v0.5.1
         if: steps.label.outputs.match == 'lgtm'
         with:
