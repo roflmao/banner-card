@@ -1258,7 +1258,7 @@ class ft extends rt {
     );
     return B`
       <a class="entity-state" style="${this.grid(s)}" @click=${n}>
-        ${$t(i, n)}
+        ${$t(i)}
         <span class="entity-value">${o}</span>
       </a>
     `;

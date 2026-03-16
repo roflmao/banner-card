@@ -291,7 +291,7 @@ class BannerCard extends LitElement {
     );
     return html`
       <a class="entity-state" style="${this.grid(size)}" @click=${onClick}>
-        ${entityName(name, onClick)}
+        ${entityName(name)}
         <span class="entity-value">${htmlContent}</span>
       </a>
     `;
