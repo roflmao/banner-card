@@ -253,6 +253,8 @@ class BannerCard extends LitElement {
                   return this.renderDomainCover(options);
                 case "media_player":
                   return this.renderDomainMediaPlayer(options);
+                case "vacuum":
+                  return this.renderDomainVacuum(options);
               }
             }
             return this.renderDomainDefault(options);
@@ -416,6 +418,26 @@ class BannerCard extends LitElement {
           </ha-icon-button>
         </span>
       </div>
+    `;
+  }
+
+  renderDomainVacuum({ onClick, size, name, state, entity }) {
+    const icons = {
+      docked: "mdi:home-map-marker",
+      idle: "mdi:robot-vacuum-variant",
+      cleaning: "mdi:robot-vacuum",
+      paused: "mdi:pause-circle",
+      returning: "mdi:home-import-outline",
+      error: "mdi:alert-circle",
+    };
+    const icon = icons[state] || "mdi:robot-vacuum";
+    return html`
+      <a class="entity-state" style="${this.grid(size)}" @click=${onClick}>
+        ${entityName(name)}
+        <span class="entity-value">
+          <ha-icon .icon="${icon}"></ha-icon>
+        </span>
+      </a>
     `;
   }
 

@@ -57,8 +57,8 @@ const r = e
   u = globalThis,
   p = u.trustedTypes,
   $ = p ? p.emptyScript : "",
-  f = u.reactiveElementPolyfillSupport,
-  m = (t, e) => t,
+  m = u.reactiveElementPolyfillSupport,
+  f = (t, e) => t,
   g = {
     toAttribute(t, e) {
       switch (e) {
@@ -149,16 +149,16 @@ let v = class extends HTMLElement {
     return this.elementProperties.get(t) ?? _;
   }
   static _$Ei() {
-    if (this.hasOwnProperty(m("elementProperties"))) return;
+    if (this.hasOwnProperty(f("elementProperties"))) return;
     const t = d(this);
     t.finalize(),
       void 0 !== t.l && (this.l = [...t.l]),
       (this.elementProperties = new Map(t.elementProperties));
   }
   static finalize() {
-    if (this.hasOwnProperty(m("finalized"))) return;
+    if (this.hasOwnProperty(f("finalized"))) return;
     if (
-      ((this.finalized = !0), this._$Ei(), this.hasOwnProperty(m("properties")))
+      ((this.finalized = !0), this._$Ei(), this.hasOwnProperty(f("properties")))
     ) {
       const t = this.properties,
         e = [...h(t), ...l(t)];
@@ -385,9 +385,9 @@ let v = class extends HTMLElement {
 };
 (v.elementStyles = []),
   (v.shadowRootOptions = { mode: "open" }),
-  (v[m("elementProperties")] = new Map()),
-  (v[m("finalized")] = new Map()),
-  f?.({ ReactiveElement: v }),
+  (v[f("elementProperties")] = new Map()),
+  (v[f("finalized")] = new Map()),
+  m?.({ ReactiveElement: v }),
   (u.reactiveElementVersions ??= []).push("2.1.2");
 /**
  * @license
@@ -417,9 +417,9 @@ const b = globalThis,
   D = /'/g,
   j = /"/g,
   I = /^(?:script|style|textarea|title)$/i,
-  B = ((t) => (e, ...i) => ({ _$litType$: t, strings: e, values: i }))(1),
-  L = Symbol.for("lit-noChange"),
-  V = Symbol.for("lit-nothing"),
+  V = ((t) => (e, ...i) => ({ _$litType$: t, strings: e, values: i }))(1),
+  B = Symbol.for("lit-noChange"),
+  L = Symbol.for("lit-nothing"),
   W = new WeakMap(),
   q = P.createTreeWalker(P, 129);
 function J(t, e) {
@@ -540,7 +540,7 @@ class Z {
   }
 }
 function F(t, e, i = t, s) {
-  if (e === L) return e;
+  if (e === B) return e;
   let n = void 0 !== s ? i._$Co?.[s] : i._$Cl;
   const r = O(e) ? void 0 : e._$litDirective$;
   return (
@@ -604,7 +604,7 @@ class Y {
   }
   constructor(t, e, i, s) {
     (this.type = 2),
-      (this._$AH = V),
+      (this._$AH = L),
       (this._$AN = void 0),
       (this._$AA = t),
       (this._$AB = e),
@@ -626,9 +626,9 @@ class Y {
   _$AI(t, e = this) {
     (t = F(this, t, e)),
       O(t)
-        ? t === V || null == t || "" === t
-          ? (this._$AH !== V && this._$AR(), (this._$AH = V))
-          : t !== this._$AH && t !== L && this._(t)
+        ? t === L || null == t || "" === t
+          ? (this._$AH !== L && this._$AR(), (this._$AH = L))
+          : t !== this._$AH && t !== B && this._(t)
         : void 0 !== t._$litType$
         ? this.$(t)
         : void 0 !== t.nodeType
@@ -644,7 +644,7 @@ class Y {
     this._$AH !== t && (this._$AR(), (this._$AH = this.O(t)));
   }
   _(t) {
-    this._$AH !== V && O(this._$AH)
+    this._$AH !== L && O(this._$AH)
       ? (this._$AA.nextSibling.data = t)
       : this.T(P.createTextNode(t)),
       (this._$AH = t);
@@ -700,7 +700,7 @@ class Q {
   }
   constructor(t, e, i, s, n) {
     (this.type = 1),
-      (this._$AH = V),
+      (this._$AH = L),
       (this._$AN = void 0),
       (this.element = t),
       (this.name = e),
@@ -709,29 +709,29 @@ class Q {
       i.length > 2 || "" !== i[0] || "" !== i[1]
         ? ((this._$AH = Array(i.length - 1).fill(new String())),
           (this.strings = i))
-        : (this._$AH = V);
+        : (this._$AH = L);
   }
   _$AI(t, e = this, i, s) {
     const n = this.strings;
     let r = !1;
     if (void 0 === n)
       (t = F(this, t, e, 0)),
-        (r = !O(t) || (t !== this._$AH && t !== L)),
+        (r = !O(t) || (t !== this._$AH && t !== B)),
         r && (this._$AH = t);
     else {
       const s = t;
       let o, a;
       for (t = n[0], o = 0; o < n.length - 1; o++)
         (a = F(this, s[i + o], e, o)),
-          a === L && (a = this._$AH[o]),
+          a === B && (a = this._$AH[o]),
           (r ||= !O(a) || a !== this._$AH[o]),
-          a === V ? (t = V) : t !== V && (t += (a ?? "") + n[o + 1]),
+          a === L ? (t = L) : t !== L && (t += (a ?? "") + n[o + 1]),
           (this._$AH[o] = a);
     }
     r && !s && this.j(t);
   }
   j(t) {
-    t === V
+    t === L
       ? this.element.removeAttribute(this.name)
       : this.element.setAttribute(this.name, t ?? "");
   }
@@ -741,7 +741,7 @@ class X extends Q {
     super(...arguments), (this.type = 3);
   }
   j(t) {
-    this.element[this.name] = t === V ? void 0 : t;
+    this.element[this.name] = t === L ? void 0 : t;
   }
 }
 class tt extends Q {
@@ -749,7 +749,7 @@ class tt extends Q {
     super(...arguments), (this.type = 4);
   }
   j(t) {
-    this.element.toggleAttribute(this.name, !!t && t !== V);
+    this.element.toggleAttribute(this.name, !!t && t !== L);
   }
 }
 class et extends Q {
@@ -757,14 +757,14 @@ class et extends Q {
     super(t, e, i, s, n), (this.type = 5);
   }
   _$AI(t, e = this) {
-    if ((t = F(this, t, e, 0) ?? V) === L) return;
+    if ((t = F(this, t, e, 0) ?? L) === B) return;
     const i = this._$AH,
       s =
-        (t === V && i !== V) ||
+        (t === L && i !== L) ||
         t.capture !== i.capture ||
         t.once !== i.once ||
         t.passive !== i.passive,
-      n = t !== V && (i === V || s);
+      n = t !== L && (i === L || s);
     s && this.element.removeEventListener(this.name, this, i),
       n && this.element.addEventListener(this.name, this, t),
       (this._$AH = t);
@@ -828,7 +828,7 @@ const nt = globalThis;
     super.disconnectedCallback(), this._$Do?.setConnected(!1);
   }
   render() {
-    return L;
+    return B;
   }
 }
 (rt._$litElement$ = !0),
@@ -1032,10 +1032,10 @@ function pt(t) {
 }
 function $t(t, e = null) {
   return e
-    ? B` <a class="entity-name" @click=${e}>${t}</a> `
-    : B` <span class="entity-name">${t}</span> `;
+    ? V` <a class="entity-name" @click=${e}>${t}</a> `
+    : V` <span class="entity-name">${t}</span> `;
 }
-class ft extends rt {
+class mt extends rt {
   static get properties() {
     return {
       config: { attribute: !1 },
@@ -1145,7 +1145,7 @@ class ft extends rt {
     return () => this._hass.callService(t, e, { entity_id: i });
   }
   render() {
-    return B`
+    return V`
       <ha-card style="background: ${this.config.background};">
         ${this.renderHeading()} ${this.renderEntities()}
       </ha-card>
@@ -1153,27 +1153,27 @@ class ft extends rt {
   }
   renderHeading() {
     let t = this.config.heading;
-    if (!1 === t) return V;
+    if (!1 === t) return L;
     Array.isArray(t) || (t = [t]);
-    return B`
+    return V`
       <h2 class="heading" @click=${() =>
         this.config.link && this.navigate(this.config.link)} style="color: ${
       this.color
     };">
         ${t.map((t) =>
           pt(t)
-            ? B`
+            ? V`
               <ha-icon class="heading-icon" .icon="${t}"></ha-icon>
             `
-            : B` <span>${t}</span> `
+            : V` <span>${t}</span> `
         )}
       </h2>
     `;
   }
   renderEntities() {
     return 0 === this.entityValues.length
-      ? V
-      : B`
+      ? L
+      : V`
       <div class="overlay-strip">
         <div
           class="entities"
@@ -1181,7 +1181,7 @@ class ft extends rt {
         >
           ${this.entityValues.map((t) => {
             if (t.error)
-              return B`
+              return V`
                 <div class="entity-state" style="${this.grid(t.size)}">
                   ${$t(t.error)}
                   <span class="entity-value error">${t.entity}</span>
@@ -1215,6 +1215,8 @@ class ft extends rt {
                   return this.renderDomainCover(e);
                 case "media_player":
                   return this.renderDomainMediaPlayer(e);
+                case "vacuum":
+                  return this.renderDomainVacuum(e);
               }
             }
             return this.renderDomainDefault(e);
@@ -1228,7 +1230,7 @@ class ft extends rt {
     o
   ) {
     return t || pt(e)
-      ? B`
+      ? V`
         <ha-icon
           .icon="${t || e}"
           style="${(r = r ? `color: ${r}` : "")}"
@@ -1236,7 +1238,7 @@ class ft extends rt {
         ></ha-icon>
       `
       : !0 === i
-      ? B`
+      ? V`
         <state-badge
           style="background-image: url(${e});"
           @click=${n}
@@ -1254,9 +1256,9 @@ class ft extends rt {
   }) {
     const o = this.renderValue(
       { ...r, value: t, click: n },
-      () => B` ${t} ${e} `
+      () => V` ${t} ${e} `
     );
-    return B`
+    return V`
       <a class="entity-state" style="${this.grid(s)}" @click=${n}>
         ${$t(i)}
         <span class="entity-value">${o}</span>
@@ -1274,13 +1276,13 @@ class ft extends rt {
   }) {
     const a = this.renderValue(
       { ...o, value: t, unit: e, click: i },
-      () => B`
+      () => V`
         <ha-button ?dense=${!0} @click=${i}>
           ${t} ${e}
         </ha-button>
       `
     );
-    return B`
+    return V`
       <div class="entity-state" style="${this.grid(n)}">
         ${$t(s, r)}
         <span class="entity-value">${a}</span>
@@ -1299,7 +1301,7 @@ class ft extends rt {
     const a = "playing" === n,
       c = a ? "media_pause" : "media_play",
       h = [e.media_artist, e.media_title].join(" – ");
-    return B`
+    return V`
       <div class="entity-state" style="${this.grid(i || "full")}">
         ${$t(s, t)}
         <div class="entity-value">
@@ -1324,7 +1326,7 @@ class ft extends rt {
     `;
   }
   _renderCustomElement(t, e, i) {
-    return B`
+    return V`
       <div class="entity-state" style="${this.grid(e.size || "full")}">
         <div class="entity-value">
           <div class="entity-padded ${i}">
@@ -1351,7 +1353,7 @@ class ft extends rt {
     color: o,
   }) {
     const a = o ? `--switch-checked-color: ${o};` : "";
-    return B`
+    return V`
       <div class="entity-state" style="${this.grid(e)}">
         ${$t(i, t)}
         <span class="entity-value">
@@ -1368,7 +1370,7 @@ class ft extends rt {
   renderDomainCover({ onClick: t, size: e, name: i, state: s, entity: n }) {
     const r = "closed" === s || 0 === s,
       o = "open" === s || 100 === s;
-    return B`
+    return V`
       <div class="entity-state" style="${this.grid(e)}">
         ${$t(i, t)}
         <span class="entity-value">
@@ -1391,6 +1393,25 @@ class ft extends rt {
           </ha-icon-button>
         </span>
       </div>
+    `;
+  }
+  renderDomainVacuum({ onClick: t, size: e, name: i, state: s, entity: n }) {
+    const r =
+      {
+        docked: "mdi:home-map-marker",
+        idle: "mdi:robot-vacuum-variant",
+        cleaning: "mdi:robot-vacuum",
+        paused: "mdi:pause-circle",
+        returning: "mdi:home-import-outline",
+        error: "mdi:alert-circle",
+      }[s] || "mdi:robot-vacuum";
+    return V`
+      <a class="entity-state" style="${this.grid(e)}" @click=${t}>
+        ${$t(i)}
+        <span class="entity-value">
+          <ha-icon .icon="${r}"></ha-icon>
+        </span>
+      </a>
     `;
   }
   getCardSize() {
@@ -1416,7 +1437,7 @@ class ft extends rt {
     return (s.detail = e), this.dispatchEvent(s), s;
   }
 }
-window.customElements.define("banner-card", ft),
+window.customElements.define("banner-card", mt),
   (window.customCards = window.customCards || []),
   window.customCards.push({
     type: "banner-card",
@@ -1425,4 +1446,4 @@ window.customElements.define("banner-card", ft),
     description:
       "The Banner card is a linkable banner with a large heading and interactive glaces of entities",
   });
-export { ft as default };
+export { mt as default };
