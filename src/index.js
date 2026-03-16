@@ -1,4 +1,4 @@
-import { LitElement, html, css } from "lit-element";
+import { LitElement, html, css, nothing } from "lit";
 import styles from "./styles";
 import { parseEntity, getAttributeOrState, readableColor } from "./utils";
 import filterEntity from "./filterEntity";
@@ -44,12 +44,12 @@ function entityName(name, onClick = null) {
 class BannerCard extends LitElement {
   static get properties() {
     return {
-      config: Object,
-      color: String,
-      entities: Array,
-      entityValues: Array,
-      rowSize: Number,
-      _hass: Object,
+      config: { attribute: false },
+      color: { attribute: false },
+      entities: { attribute: false },
+      entityValues: { attribute: false },
+      rowSize: { attribute: false },
+      _hass: { attribute: false },
     };
   }
 
@@ -168,7 +168,7 @@ class BannerCard extends LitElement {
   renderHeading() {
     let heading = this.config.heading;
     if (heading === false) {
-      return null;
+      return nothing;
     }
 
     if (!Array.isArray(heading)) {
@@ -192,7 +192,7 @@ class BannerCard extends LitElement {
 
   renderEntities() {
     if (this.entityValues.length === 0) {
-      return null;
+      return nothing;
     }
 
     return html`
@@ -335,20 +335,18 @@ class BannerCard extends LitElement {
           <div class="entity-state-left media-title">${mediaTitle}</div>
           <div class="entity-state-right media-controls">
             <ha-icon-button
-              icon="mdi:skip-previous"
-              role="button"
               @click=${this._service(domain, "media_previous_track", entity)}
-            ></ha-icon-button>
+            >
+              <ha-icon icon="mdi:skip-previous"></ha-icon>
+            </ha-icon-button>
+            <ha-icon-button @click=${this._service(domain, action, entity)}>
+              <ha-icon icon="${isPlaying ? "mdi:stop" : "mdi:play"}"></ha-icon>
+            </ha-icon-button>
             <ha-icon-button
-              icon="${isPlaying ? "mdi:stop" : "mdi:play"}"
-              role="button"
-              @click=${this._service(domain, action, entity)}
-            ></ha-icon-button>
-            <ha-icon-button
-              icon="mdi:skip-next"
-              role="button"
               @click=${this._service(domain, "media_next_track", entity)}
-            ></ha-icon-button>
+            >
+              <ha-icon icon="mdi:skip-next"></ha-icon>
+            </ha-icon-button>
           </div>
         </div>
       </div>
@@ -382,9 +380,9 @@ class BannerCard extends LitElement {
         ${entityName(name, onClick)}
         <span class="entity-value">
           <ha-switch
-            style="--mdc-theme-secondary: ${color};"
+            style="--switch-checked-color: ${color};"
             ?checked=${state === "on"}
-            @click=${this._service(domain, "toggle", entity)}
+            @change=${this._service(domain, "toggle", entity)}
           >
           </ha-switch>
         </span>
@@ -401,21 +399,21 @@ class BannerCard extends LitElement {
         <span class="entity-value">
           <ha-icon-button
             ?disabled=${isopen}
-            icon="hass:arrow-up"
-            role="button"
             @click=${this._service("cover", "open_cover", entity)}
-          ></ha-icon-button>
+          >
+            <ha-icon icon="mdi:arrow-up"></ha-icon>
+          </ha-icon-button>
           <ha-icon-button
-            icon="hass:stop"
-            role="button"
             @click=${this._service("cover", "stop_cover", entity)}
-          ></ha-icon-button>
+          >
+            <ha-icon icon="mdi:stop"></ha-icon>
+          </ha-icon-button>
           <ha-icon-button
             ?disabled=${isclosed}
-            icon="hass:arrow-down"
-            role="button"
             @click=${this._service("cover", "close_cover", entity)}
-          ></ha-icon-button>
+          >
+            <ha-icon icon="mdi:arrow-down"></ha-icon>
+          </ha-icon-button>
         </span>
       </div>
     `;
@@ -423,6 +421,15 @@ class BannerCard extends LitElement {
 
   getCardSize() {
     return 3;
+  }
+
+  getGridOptions() {
+    return {
+      rows: 3,
+      columns: 12,
+      min_rows: 2,
+      min_columns: 6,
+    };
   }
 
   navigate(path) {

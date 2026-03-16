@@ -1,5 +1,5 @@
 import test from "ava";
-import filterEntity from "./filterEntity";
+import filterEntity from "./filterEntity.js";
 
 const mediaPlayer = {
   state: "playing",
@@ -12,33 +12,33 @@ const mediaPlayer = {
     source_list: ["Discover Weekly", "Radio"],
     shuffle: false,
     sonos_group: ["media_player.office"],
-    friendly_name: "Office"
-  }
+    friendly_name: "Office",
+  },
 };
 
 const hass = {
-  "media_player.office": mediaPlayer
+  "media_player.office": mediaPlayer,
 };
 
 function config(state, attributes = null, entity = "media_player.office") {
   return {
     entity,
-    when: { state, attributes }
+    when: { state, attributes },
   };
 }
 
-test("filterEntity with basic state matching", t => {
+test("filterEntity with basic state matching", (t) => {
   t.assert(filterEntity(config("playing"), hass) === true);
   t.assert(filterEntity(config("paused"), hass) === false);
 });
 
-test("filterEntity with operator prefixed state matching", t => {
+test("filterEntity with operator prefixed state matching", (t) => {
   t.assert(filterEntity(config(["=", "playing"]), hass) === true);
   t.assert(filterEntity(config(["!=", "playing"]), hass) === false);
   t.assert(filterEntity(config(["!=", "paused"]), hass) === true);
 });
 
-test("filterEntity with attribute matching", t => {
+test("filterEntity with attribute matching", (t) => {
   t.assert(
     filterEntity(config(undefined, { media_artist: "Pink Floyd" }), hass) ===
       true
@@ -65,7 +65,7 @@ test("filterEntity with attribute matching", t => {
   );
 });
 
-test("filterEntity with state + attribute matching", t => {
+test("filterEntity with state + attribute matching", (t) => {
   t.assert(
     filterEntity(config("playing", { media_artist: "Pink Floyd" }), hass) ===
       true

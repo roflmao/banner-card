@@ -1,36 +1,36 @@
 import test from "ava";
-import { parseEntity, mapObject, getAttributeOrState } from "./utils";
+import { parseEntity, mapObject, getAttributeOrState } from "./utils.js";
 
 // Test that entities both can be specified as a string or as an object
-test("parseEntity supports string + object", t => {
+test("parseEntity supports string + object", (t) => {
   const entity = "my.entity";
   t.deepEqual(parseEntity(entity), { entity });
   t.deepEqual(parseEntity({ entity }), { entity });
 });
 
-test("parseEntity nulls false values", t => {
+test("parseEntity nulls false values", (t) => {
   const fixture = {
     entity: "a",
-    name: false
+    name: false,
   };
   t.is(parseEntity(fixture).name, null);
 });
 
-test("parseEntity passes through all truthy values", t => {
+test("parseEntity passes through all truthy values", (t) => {
   const fixture = {
     entity: "a",
     name: "B",
-    foo: true
+    foo: true,
   };
   t.deepEqual(parseEntity(fixture), fixture);
 });
 
-test("getAttributeOrState returns only valid attribute", t => {
+test("getAttributeOrState returns only valid attribute", (t) => {
   const fixture = {
     state: "on",
     attributes: {
-      active: true
-    }
+      active: true,
+    },
   };
 
   t.is(getAttributeOrState(fixture, "active"), true);
