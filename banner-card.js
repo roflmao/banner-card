@@ -56,14 +56,14 @@ const r = e
   } = Object,
   u = globalThis,
   p = u.trustedTypes,
-  $ = p ? p.emptyScript : "",
-  m = u.reactiveElementPolyfillSupport,
-  f = (t, e) => t,
-  g = {
+  m = p ? p.emptyScript : "",
+  $ = u.reactiveElementPolyfillSupport,
+  g = (t, e) => t,
+  f = {
     toAttribute(t, e) {
       switch (e) {
         case Boolean:
-          t = t ? $ : null;
+          t = t ? m : null;
           break;
         case Object:
         case Array:
@@ -95,7 +95,7 @@ const r = e
   _ = {
     attribute: !0,
     type: String,
-    converter: g,
+    converter: f,
     reflect: !1,
     useDefault: !1,
     hasChanged: y,
@@ -149,16 +149,16 @@ let v = class extends HTMLElement {
     return this.elementProperties.get(t) ?? _;
   }
   static _$Ei() {
-    if (this.hasOwnProperty(f("elementProperties"))) return;
+    if (this.hasOwnProperty(g("elementProperties"))) return;
     const t = d(this);
     t.finalize(),
       void 0 !== t.l && (this.l = [...t.l]),
       (this.elementProperties = new Map(t.elementProperties));
   }
   static finalize() {
-    if (this.hasOwnProperty(f("finalized"))) return;
+    if (this.hasOwnProperty(g("finalized"))) return;
     if (
-      ((this.finalized = !0), this._$Ei(), this.hasOwnProperty(f("properties")))
+      ((this.finalized = !0), this._$Ei(), this.hasOwnProperty(g("properties")))
     ) {
       const t = this.properties,
         e = [...h(t), ...l(t)];
@@ -263,7 +263,7 @@ let v = class extends HTMLElement {
     if (void 0 !== s && !0 === i.reflect) {
       const n = (void 0 !== i.converter?.toAttribute
         ? i.converter
-        : g
+        : f
       ).toAttribute(e, i.type);
       (this._$Em = t),
         null == n ? this.removeAttribute(s) : this.setAttribute(s, n),
@@ -280,7 +280,7 @@ let v = class extends HTMLElement {
             ? { fromAttribute: t.converter }
             : void 0 !== t.converter?.fromAttribute
             ? t.converter
-            : g;
+            : f;
       this._$Em = s;
       const r = n.fromAttribute(e, t.type);
       (this[s] = r ?? this._$Ej?.get(s) ?? r), (this._$Em = null);
@@ -385,9 +385,9 @@ let v = class extends HTMLElement {
 };
 (v.elementStyles = []),
   (v.shadowRootOptions = { mode: "open" }),
-  (v[f("elementProperties")] = new Map()),
-  (v[f("finalized")] = new Map()),
-  m?.({ ReactiveElement: v }),
+  (v[g("elementProperties")] = new Map()),
+  (v[g("finalized")] = new Map()),
+  $?.({ ReactiveElement: v }),
   (u.reactiveElementVersions ??= []).push("2.1.2");
 /**
  * @license
@@ -395,15 +395,15 @@ let v = class extends HTMLElement {
  * SPDX-License-Identifier: BSD-3-Clause
  */
 const b = globalThis,
-  A = (t) => t,
-  w = b.trustedTypes,
-  E = w ? w.createPolicy("lit-html", { createHTML: (t) => t }) : void 0,
+  w = (t) => t,
+  A = b.trustedTypes,
+  E = A ? A.createPolicy("lit-html", { createHTML: (t) => t }) : void 0,
   S = "$lit$",
-  C = `lit$${Math.random().toFixed(9).slice(2)}$`,
-  x = "?" + C,
-  k = `<${x}>`,
-  P = document,
-  z = () => P.createComment(""),
+  k = `lit$${Math.random().toFixed(9).slice(2)}$`,
+  C = "?" + k,
+  x = `<${C}>`,
+  z = document,
+  P = () => z.createComment(""),
   O = (t) => null === t || ("object" != typeof t && "function" != typeof t),
   U = Array.isArray,
   H = "[ \t\n\f\r]",
@@ -421,7 +421,7 @@ const b = globalThis,
   B = Symbol.for("lit-noChange"),
   L = Symbol.for("lit-nothing"),
   W = new WeakMap(),
-  q = P.createTreeWalker(P, 129);
+  q = z.createTreeWalker(z, 129);
 function J(t, e) {
   if (!U(t) || !t.hasOwnProperty("raw"))
     throw Error("invalid template strings array");
@@ -465,10 +465,10 @@ const K = (t, e) => {
     const d = o === R && t[e + 1].startsWith("/>") ? " " : "";
     r +=
       o === M
-        ? i + k
+        ? i + x
         : h >= 0
-        ? (s.push(a), i.slice(0, h) + S + i.slice(h) + C + d)
-        : i + C + (-2 === h ? e : d);
+        ? (s.push(a), i.slice(0, h) + S + i.slice(h) + k + d)
+        : i + k + (-2 === h ? e : d);
   }
   return [
     J(t, r + (t[i] || "<?>") + (2 === e ? "</svg>" : 3 === e ? "</math>" : "")),
@@ -498,7 +498,7 @@ class Z {
           for (const t of s.getAttributeNames())
             if (t.endsWith(S)) {
               const e = h[r++],
-                i = s.getAttribute(t).split(C),
+                i = s.getAttribute(t).split(k),
                 o = /([.?@])?(.*)/.exec(e);
               a.push({
                 type: 1,
@@ -510,32 +510,32 @@ class Z {
               }),
                 s.removeAttribute(t);
             } else
-              t.startsWith(C) &&
+              t.startsWith(k) &&
                 (a.push({ type: 6, index: n }), s.removeAttribute(t));
         if (I.test(s.tagName)) {
-          const t = s.textContent.split(C),
+          const t = s.textContent.split(k),
             e = t.length - 1;
           if (e > 0) {
-            s.textContent = w ? w.emptyScript : "";
+            s.textContent = A ? A.emptyScript : "";
             for (let i = 0; i < e; i++)
-              s.append(t[i], z()),
+              s.append(t[i], P()),
                 q.nextNode(),
                 a.push({ type: 2, index: ++n });
-            s.append(t[e], z());
+            s.append(t[e], P());
           }
         }
       } else if (8 === s.nodeType)
-        if (s.data === x) a.push({ type: 2, index: n });
+        if (s.data === C) a.push({ type: 2, index: n });
         else {
           let t = -1;
-          for (; -1 !== (t = s.data.indexOf(C, t + 1)); )
-            a.push({ type: 7, index: n }), (t += C.length - 1);
+          for (; -1 !== (t = s.data.indexOf(k, t + 1)); )
+            a.push({ type: 7, index: n }), (t += k.length - 1);
         }
       n++;
     }
   }
   static createElement(t, e) {
-    const i = P.createElement("template");
+    const i = z.createElement("template");
     return (i.innerHTML = t), i;
   }
 }
@@ -567,7 +567,7 @@ class G {
         el: { content: e },
         parts: i,
       } = this._$AD,
-      s = (t?.creationScope ?? P).importNode(e, !0);
+      s = (t?.creationScope ?? z).importNode(e, !0);
     q.currentNode = s;
     let n = q.nextNode(),
       r = 0,
@@ -586,7 +586,7 @@ class G {
       }
       r !== a?.index && ((n = q.nextNode()), r++);
     }
-    return (q.currentNode = P), s;
+    return (q.currentNode = z), s;
   }
   p(t) {
     let e = 0;
@@ -646,7 +646,7 @@ class Y {
   _(t) {
     this._$AH !== L && O(this._$AH)
       ? (this._$AA.nextSibling.data = t)
-      : this.T(P.createTextNode(t)),
+      : this.T(z.createTextNode(t)),
       (this._$AH = t);
   }
   $(t) {
@@ -675,7 +675,7 @@ class Y {
       s = 0;
     for (const n of t)
       s === e.length
-        ? e.push((i = new Y(this.O(z()), this.O(z()), this, this.options)))
+        ? e.push((i = new Y(this.O(P()), this.O(P()), this, this.options)))
         : (i = e[s]),
         i._$AI(n),
         s++;
@@ -683,8 +683,8 @@ class Y {
   }
   _$AR(t = this._$AA.nextSibling, e) {
     for (this._$AP?.(!1, !0, e); t !== this._$AB; ) {
-      const e = A(t).nextSibling;
-      A(t).remove(), (t = e);
+      const e = w(t).nextSibling;
+      w(t).remove(), (t = e);
     }
   }
   setConnected(t) {
@@ -816,7 +816,7 @@ const nt = globalThis;
         let n = s._$litPart$;
         if (void 0 === n) {
           const t = i?.renderBefore ?? null;
-          s._$litPart$ = n = new Y(e.insertBefore(z(), t), t, void 0, i ?? {});
+          s._$litPart$ = n = new Y(e.insertBefore(P(), t), t, void 0, i ?? {});
         }
         return n._$AI(t), n;
       })(e, this.renderRoot, this.renderOptions));
@@ -882,9 +882,8 @@ var at = ((t, ...e) => {
   }
 
   ha-icon-button {
-    width: var(--bc-button-size);
-    height: var(--bc-button-size);
-    padding: var(--bc-spacing);
+    --ha-icon-button-size: var(--bc-button-size);
+    --mdc-icon-size: calc(var(--bc-button-size) - 2 * var(--bc-spacing));
   }
 
   .heading {
@@ -898,8 +897,7 @@ var at = ((t, ...e) => {
   }
 
   ha-icon.heading-icon {
-    --iron-icon-width: 1em;
-    --iron-icon-height: 1em;
+    --mdc-icon-size: 1em;
     margin: 0 var(--bc-spacing);
   }
 
@@ -991,10 +989,13 @@ var at = ((t, ...e) => {
   }
 
   ha-button {
-    --mdc-theme-primary: white;
+    --wa-color-on-normal: white;
   }
   ha-switch {
-    --mdc-theme-secondary: white;
+    --ha-switch-checked-thumb-background-color: white;
+    --ha-switch-checked-thumb-background-color-hover: white;
+    --ha-switch-checked-background-color: rgba(255, 255, 255, 0.54);
+    --ha-switch-checked-background-color-hover: rgba(255, 255, 255, 0.54);
   }
 `;
 function ct({ state: t, attributes: e }, i = !1) {
@@ -1030,12 +1031,12 @@ const ut = /^(mdi|hass):/;
 function pt(t) {
   return "string" == typeof t && t.match(ut);
 }
-function $t(t, e = null) {
+function mt(t, e = null) {
   return e
     ? V` <a class="entity-name" @click=${e}>${t}</a> `
     : V` <span class="entity-name">${t}</span> `;
 }
-class mt extends rt {
+class $t extends rt {
   static get properties() {
     return {
       config: { attribute: !1 },
@@ -1183,7 +1184,7 @@ class mt extends rt {
             if (t.error)
               return V`
                 <div class="entity-state" style="${this.grid(t.size)}">
-                  ${$t(t.error)}
+                  ${mt(t.error)}
                   <span class="entity-value error">${t.entity}</span>
                 </div>
               `;
@@ -1260,7 +1261,7 @@ class mt extends rt {
     );
     return V`
       <a class="entity-state" style="${this.grid(s)}" @click=${n}>
-        ${$t(i)}
+        ${mt(i)}
         <span class="entity-value">${o}</span>
       </a>
     `;
@@ -1277,14 +1278,14 @@ class mt extends rt {
     const a = this.renderValue(
       { ...o, value: t, unit: e, click: i },
       () => V`
-        <ha-button ?dense=${!0} @click=${i}>
+        <ha-button size="s" appearance="plain" @click=${i}>
           ${t} ${e}
         </ha-button>
       `
     );
     return V`
       <div class="entity-state" style="${this.grid(n)}">
-        ${$t(s, r)}
+        ${mt(s, r)}
         <span class="entity-value">${a}</span>
       </div>
     `;
@@ -1303,7 +1304,7 @@ class mt extends rt {
       h = [e.media_artist, e.media_title].join(" – ");
     return V`
       <div class="entity-state" style="${this.grid(i || "full")}">
-        ${$t(s, t)}
+        ${mt(s, t)}
         <div class="entity-value">
           <div class="entity-state-left media-title">${h}</div>
           <div class="entity-state-right media-controls">
@@ -1352,10 +1353,17 @@ class mt extends rt {
     entity: r,
     color: o,
   }) {
-    const a = o ? `--switch-checked-color: ${o};` : "";
+    const a = o
+      ? [
+          `--ha-switch-checked-thumb-background-color: ${o};`,
+          `--ha-switch-checked-thumb-background-color-hover: ${o};`,
+          `--ha-switch-checked-background-color: color-mix(in srgb, ${o} 54%, transparent);`,
+          `--ha-switch-checked-background-color-hover: color-mix(in srgb, ${o} 54%, transparent);`,
+        ].join(" ")
+      : "";
     return V`
       <div class="entity-state" style="${this.grid(e)}">
-        ${$t(i, t)}
+        ${mt(i, t)}
         <span class="entity-value">
           <ha-switch
             style="${a}"
@@ -1372,7 +1380,7 @@ class mt extends rt {
       o = "open" === s || 100 === s;
     return V`
       <div class="entity-state" style="${this.grid(e)}">
-        ${$t(i, t)}
+        ${mt(i, t)}
         <span class="entity-value">
           <ha-icon-button
             ?disabled=${o}
@@ -1407,7 +1415,7 @@ class mt extends rt {
       }[s] || "mdi:robot-vacuum";
     return V`
       <a class="entity-state" style="${this.grid(e)}" @click=${t}>
-        ${$t(i)}
+        ${mt(i)}
         <span class="entity-value">
           <ha-icon .icon="${r}"></ha-icon>
         </span>
@@ -1437,7 +1445,7 @@ class mt extends rt {
     return (s.detail = e), this.dispatchEvent(s), s;
   }
 }
-window.customElements.define("banner-card", mt),
+window.customElements.define("banner-card", $t),
   (window.customCards = window.customCards || []),
   window.customCards.push({
     type: "banner-card",
@@ -1446,4 +1454,4 @@ window.customElements.define("banner-card", mt),
     description:
       "The Banner card is a linkable banner with a large heading and interactive glaces of entities",
   });
-export { mt as default };
+export { $t as default };

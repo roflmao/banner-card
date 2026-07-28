@@ -26,9 +26,8 @@ export default css`
   }
 
   ha-icon-button {
-    width: var(--bc-button-size);
-    height: var(--bc-button-size);
-    padding: var(--bc-spacing);
+    --ha-icon-button-size: var(--bc-button-size);
+    --mdc-icon-size: calc(var(--bc-button-size) - 2 * var(--bc-spacing));
   }
 
   .heading {
@@ -42,8 +41,7 @@ export default css`
   }
 
   ha-icon.heading-icon {
-    --iron-icon-width: 1em;
-    --iron-icon-height: 1em;
+    --mdc-icon-size: 1em;
     margin: 0 var(--bc-spacing);
   }
 
@@ -135,9 +133,12 @@ export default css`
   }
 
   ha-button {
-    --mdc-theme-primary: white;
+    --wa-color-on-normal: white;
   }
   ha-switch {
-    --mdc-theme-secondary: white;
+    --ha-switch-checked-thumb-background-color: white;
+    --ha-switch-checked-thumb-background-color-hover: white;
+    --ha-switch-checked-background-color: rgba(255, 255, 255, 0.54);
+    --ha-switch-checked-background-color-hover: rgba(255, 255, 255, 0.54);
   }
 `;

@@ -303,7 +303,7 @@ class BannerCard extends LitElement {
     const htmlContent = this.renderValue(
       { ...data, value, unit, click: action },
       () => html`
-        <ha-button ?dense=${true} @click=${action}>
+        <ha-button size="s" appearance="plain" @click=${action}>
           ${value} ${unit}
         </ha-button>
       `
@@ -376,7 +376,14 @@ class BannerCard extends LitElement {
   }
 
   renderAsToggle({ onClick, size, name, state, domain, entity, color }) {
-    const switchStyle = color ? `--switch-checked-color: ${color};` : "";
+    const switchStyle = color
+      ? [
+          `--ha-switch-checked-thumb-background-color: ${color};`,
+          `--ha-switch-checked-thumb-background-color-hover: ${color};`,
+          `--ha-switch-checked-background-color: color-mix(in srgb, ${color} 54%, transparent);`,
+          `--ha-switch-checked-background-color-hover: color-mix(in srgb, ${color} 54%, transparent);`,
+        ].join(" ")
+      : "";
     return html`
       <div class="entity-state" style="${this.grid(size)}">
         ${entityName(name, onClick)}
