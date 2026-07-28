@@ -56,14 +56,14 @@ const r = e
   } = Object,
   u = globalThis,
   p = u.trustedTypes,
-  m = p ? p.emptyScript : "",
-  $ = u.reactiveElementPolyfillSupport,
-  g = (t, e) => t,
-  f = {
+  $ = p ? p.emptyScript : "",
+  m = u.reactiveElementPolyfillSupport,
+  f = (t, e) => t,
+  g = {
     toAttribute(t, e) {
       switch (e) {
         case Boolean:
-          t = t ? m : null;
+          t = t ? $ : null;
           break;
         case Object:
         case Array:
@@ -92,10 +92,10 @@ const r = e
     },
   },
   y = (t, e) => !o(t, e),
-  v = {
+  _ = {
     attribute: !0,
     type: String,
-    converter: f,
+    converter: g,
     reflect: !1,
     useDefault: !1,
     hasChanged: y,
@@ -106,14 +106,14 @@ const r = e
  * SPDX-License-Identifier: BSD-3-Clause
  */ (Symbol.metadata ??= Symbol("metadata")),
   (u.litPropertyMetadata ??= new WeakMap());
-let _ = class extends HTMLElement {
+let v = class extends HTMLElement {
   static addInitializer(t) {
     this._$Ei(), (this.l ??= []).push(t);
   }
   static get observedAttributes() {
     return this.finalize(), this._$Eh && [...this._$Eh.keys()];
   }
-  static createProperty(t, e = v) {
+  static createProperty(t, e = _) {
     if (
       (e.state && (e.attribute = !1),
       this._$Ei(),
@@ -146,19 +146,19 @@ let _ = class extends HTMLElement {
     };
   }
   static getPropertyOptions(t) {
-    return this.elementProperties.get(t) ?? v;
+    return this.elementProperties.get(t) ?? _;
   }
   static _$Ei() {
-    if (this.hasOwnProperty(g("elementProperties"))) return;
+    if (this.hasOwnProperty(f("elementProperties"))) return;
     const t = d(this);
     t.finalize(),
       void 0 !== t.l && (this.l = [...t.l]),
       (this.elementProperties = new Map(t.elementProperties));
   }
   static finalize() {
-    if (this.hasOwnProperty(g("finalized"))) return;
+    if (this.hasOwnProperty(f("finalized"))) return;
     if (
-      ((this.finalized = !0), this._$Ei(), this.hasOwnProperty(g("properties")))
+      ((this.finalized = !0), this._$Ei(), this.hasOwnProperty(f("properties")))
     ) {
       const t = this.properties,
         e = [...h(t), ...l(t)];
@@ -263,7 +263,7 @@ let _ = class extends HTMLElement {
     if (void 0 !== s && !0 === i.reflect) {
       const n = (void 0 !== i.converter?.toAttribute
         ? i.converter
-        : f
+        : g
       ).toAttribute(e, i.type);
       (this._$Em = t),
         null == n ? this.removeAttribute(s) : this.setAttribute(s, n),
@@ -280,7 +280,7 @@ let _ = class extends HTMLElement {
             ? { fromAttribute: t.converter }
             : void 0 !== t.converter?.fromAttribute
             ? t.converter
-            : f;
+            : g;
       this._$Em = s;
       const r = n.fromAttribute(e, t.type);
       (this[s] = r ?? this._$Ej?.get(s) ?? r), (this._$Em = null);
@@ -383,11 +383,11 @@ let _ = class extends HTMLElement {
   updated(t) {}
   firstUpdated(t) {}
 };
-(_.elementStyles = []),
-  (_.shadowRootOptions = { mode: "open" }),
-  (_[g("elementProperties")] = new Map()),
-  (_[g("finalized")] = new Map()),
-  $?.({ ReactiveElement: _ }),
+(v.elementStyles = []),
+  (v.shadowRootOptions = { mode: "open" }),
+  (v[f("elementProperties")] = new Map()),
+  (v[f("finalized")] = new Map()),
+  m?.({ ReactiveElement: v }),
   (u.reactiveElementVersions ??= []).push("2.1.2");
 /**
  * @license
@@ -395,13 +395,13 @@ let _ = class extends HTMLElement {
  * SPDX-License-Identifier: BSD-3-Clause
  */
 const b = globalThis,
-  w = (t) => t,
-  A = b.trustedTypes,
-  E = A ? A.createPolicy("lit-html", { createHTML: (t) => t }) : void 0,
+  A = (t) => t,
+  w = b.trustedTypes,
+  E = w ? w.createPolicy("lit-html", { createHTML: (t) => t }) : void 0,
   S = "$lit$",
-  k = `lit$${Math.random().toFixed(9).slice(2)}$`,
-  C = "?" + k,
-  x = `<${C}>`,
+  C = `lit$${Math.random().toFixed(9).slice(2)}$`,
+  x = "?" + C,
+  k = `<${x}>`,
   z = document,
   P = () => z.createComment(""),
   O = (t) => null === t || ("object" != typeof t && "function" != typeof t),
@@ -465,10 +465,10 @@ const K = (t, e) => {
     const d = o === R && t[e + 1].startsWith("/>") ? " " : "";
     r +=
       o === M
-        ? i + x
+        ? i + k
         : h >= 0
-        ? (s.push(a), i.slice(0, h) + S + i.slice(h) + k + d)
-        : i + k + (-2 === h ? e : d);
+        ? (s.push(a), i.slice(0, h) + S + i.slice(h) + C + d)
+        : i + C + (-2 === h ? e : d);
   }
   return [
     J(t, r + (t[i] || "<?>") + (2 === e ? "</svg>" : 3 === e ? "</math>" : "")),
@@ -498,7 +498,7 @@ class Z {
           for (const t of s.getAttributeNames())
             if (t.endsWith(S)) {
               const e = h[r++],
-                i = s.getAttribute(t).split(k),
+                i = s.getAttribute(t).split(C),
                 o = /([.?@])?(.*)/.exec(e);
               a.push({
                 type: 1,
@@ -510,13 +510,13 @@ class Z {
               }),
                 s.removeAttribute(t);
             } else
-              t.startsWith(k) &&
+              t.startsWith(C) &&
                 (a.push({ type: 6, index: n }), s.removeAttribute(t));
         if (I.test(s.tagName)) {
-          const t = s.textContent.split(k),
+          const t = s.textContent.split(C),
             e = t.length - 1;
           if (e > 0) {
-            s.textContent = A ? A.emptyScript : "";
+            s.textContent = w ? w.emptyScript : "";
             for (let i = 0; i < e; i++)
               s.append(t[i], P()),
                 q.nextNode(),
@@ -525,11 +525,11 @@ class Z {
           }
         }
       } else if (8 === s.nodeType)
-        if (s.data === C) a.push({ type: 2, index: n });
+        if (s.data === x) a.push({ type: 2, index: n });
         else {
           let t = -1;
-          for (; -1 !== (t = s.data.indexOf(k, t + 1)); )
-            a.push({ type: 7, index: n }), (t += k.length - 1);
+          for (; -1 !== (t = s.data.indexOf(C, t + 1)); )
+            a.push({ type: 7, index: n }), (t += C.length - 1);
         }
       n++;
     }
@@ -683,8 +683,8 @@ class Y {
   }
   _$AR(t = this._$AA.nextSibling, e) {
     for (this._$AP?.(!1, !0, e); t !== this._$AB; ) {
-      const e = w(t).nextSibling;
-      w(t).remove(), (t = e);
+      const e = A(t).nextSibling;
+      A(t).remove(), (t = e);
     }
   }
   setConnected(t) {
@@ -797,7 +797,7 @@ const nt = globalThis;
  * @license
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
- */ class rt extends _ {
+ */ class rt extends v {
   constructor() {
     super(...arguments),
       (this.renderOptions = { host: this }),
@@ -991,16 +991,6 @@ var at = ((t, ...e) => {
   ha-button {
     --wa-color-on-normal: white;
   }
-  ha-switch {
-    --ha-switch-checked-thumb-background-color: white;
-    --ha-switch-checked-thumb-background-color-hover: white;
-    --ha-switch-checked-thumb-border-color: white;
-    --ha-switch-checked-thumb-border-color-hover: white;
-    --ha-switch-checked-background-color: rgba(255, 255, 255, 0.54);
-    --ha-switch-checked-background-color-hover: rgba(255, 255, 255, 0.54);
-    --ha-switch-checked-border-color: transparent;
-    --ha-switch-checked-border-color-hover: transparent;
-  }
 `;
 function ct({ state: t, attributes: e }, i = !1) {
   return "string" == typeof i && e.hasOwnProperty(i) ? e[i] : t;
@@ -1035,12 +1025,12 @@ const ut = /^(mdi|hass):/;
 function pt(t) {
   return "string" == typeof t && t.match(ut);
 }
-function mt(t, e = null) {
+function $t(t, e = null) {
   return e
     ? V` <a class="entity-name" @click=${e}>${t}</a> `
     : V` <span class="entity-name">${t}</span> `;
 }
-class $t extends rt {
+class mt extends rt {
   static get properties() {
     return {
       config: { attribute: !1 },
@@ -1188,7 +1178,7 @@ class $t extends rt {
             if (t.error)
               return V`
                 <div class="entity-state" style="${this.grid(t.size)}">
-                  ${mt(t.error)}
+                  ${$t(t.error)}
                   <span class="entity-value error">${t.entity}</span>
                 </div>
               `;
@@ -1265,7 +1255,7 @@ class $t extends rt {
     );
     return V`
       <a class="entity-state" style="${this.grid(s)}" @click=${n}>
-        ${mt(i)}
+        ${$t(i)}
         <span class="entity-value">${o}</span>
       </a>
     `;
@@ -1289,7 +1279,7 @@ class $t extends rt {
     );
     return V`
       <div class="entity-state" style="${this.grid(n)}">
-        ${mt(s, r)}
+        ${$t(s, r)}
         <span class="entity-value">${a}</span>
       </div>
     `;
@@ -1308,7 +1298,7 @@ class $t extends rt {
       h = [e.media_artist, e.media_title].join(" – ");
     return V`
       <div class="entity-state" style="${this.grid(i || "full")}">
-        ${mt(s, t)}
+        ${$t(s, t)}
         <div class="entity-value">
           <div class="entity-state-left media-title">${h}</div>
           <div class="entity-state-right media-controls">
@@ -1369,7 +1359,7 @@ class $t extends rt {
       : "";
     return V`
       <div class="entity-state" style="${this.grid(e)}">
-        ${mt(i, t)}
+        ${$t(i, t)}
         <span class="entity-value">
           <ha-switch
             style="${a}"
@@ -1386,7 +1376,7 @@ class $t extends rt {
       o = "open" === s || 100 === s;
     return V`
       <div class="entity-state" style="${this.grid(e)}">
-        ${mt(i, t)}
+        ${$t(i, t)}
         <span class="entity-value">
           <ha-icon-button
             ?disabled=${o}
@@ -1421,7 +1411,7 @@ class $t extends rt {
       }[s] || "mdi:robot-vacuum";
     return V`
       <a class="entity-state" style="${this.grid(e)}" @click=${t}>
-        ${mt(i)}
+        ${$t(i)}
         <span class="entity-value">
           <ha-icon .icon="${r}"></ha-icon>
         </span>
@@ -1451,7 +1441,7 @@ class $t extends rt {
     return (s.detail = e), this.dispatchEvent(s), s;
   }
 }
-window.customElements.define("banner-card", $t),
+window.customElements.define("banner-card", mt),
   (window.customCards = window.customCards || []),
   window.customCards.push({
     type: "banner-card",
@@ -1460,4 +1450,4 @@ window.customElements.define("banner-card", $t),
     description:
       "The Banner card is a linkable banner with a large heading and interactive glaces of entities",
   });
-export { $t as default };
+export { mt as default };
