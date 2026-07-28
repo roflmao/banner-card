@@ -380,6 +380,8 @@ class BannerCard extends LitElement {
       ? [
           `--ha-switch-checked-thumb-background-color: ${color};`,
           `--ha-switch-checked-thumb-background-color-hover: ${color};`,
+          `--ha-switch-checked-thumb-border-color: ${color};`,
+          `--ha-switch-checked-thumb-border-color-hover: ${color};`,
           `--ha-switch-checked-background-color: color-mix(in srgb, ${color} 54%, transparent);`,
           `--ha-switch-checked-background-color-hover: color-mix(in srgb, ${color} 54%, transparent);`,
         ].join(" ")

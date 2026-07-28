@@ -92,7 +92,7 @@ const r = e
     },
   },
   y = (t, e) => !o(t, e),
-  _ = {
+  v = {
     attribute: !0,
     type: String,
     converter: f,
@@ -106,14 +106,14 @@ const r = e
  * SPDX-License-Identifier: BSD-3-Clause
  */ (Symbol.metadata ??= Symbol("metadata")),
   (u.litPropertyMetadata ??= new WeakMap());
-let v = class extends HTMLElement {
+let _ = class extends HTMLElement {
   static addInitializer(t) {
     this._$Ei(), (this.l ??= []).push(t);
   }
   static get observedAttributes() {
     return this.finalize(), this._$Eh && [...this._$Eh.keys()];
   }
-  static createProperty(t, e = _) {
+  static createProperty(t, e = v) {
     if (
       (e.state && (e.attribute = !1),
       this._$Ei(),
@@ -146,7 +146,7 @@ let v = class extends HTMLElement {
     };
   }
   static getPropertyOptions(t) {
-    return this.elementProperties.get(t) ?? _;
+    return this.elementProperties.get(t) ?? v;
   }
   static _$Ei() {
     if (this.hasOwnProperty(g("elementProperties"))) return;
@@ -383,11 +383,11 @@ let v = class extends HTMLElement {
   updated(t) {}
   firstUpdated(t) {}
 };
-(v.elementStyles = []),
-  (v.shadowRootOptions = { mode: "open" }),
-  (v[g("elementProperties")] = new Map()),
-  (v[g("finalized")] = new Map()),
-  $?.({ ReactiveElement: v }),
+(_.elementStyles = []),
+  (_.shadowRootOptions = { mode: "open" }),
+  (_[g("elementProperties")] = new Map()),
+  (_[g("finalized")] = new Map()),
+  $?.({ ReactiveElement: _ }),
   (u.reactiveElementVersions ??= []).push("2.1.2");
 /**
  * @license
@@ -797,7 +797,7 @@ const nt = globalThis;
  * @license
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
- */ class rt extends v {
+ */ class rt extends _ {
   constructor() {
     super(...arguments),
       (this.renderOptions = { host: this }),
@@ -994,8 +994,12 @@ var at = ((t, ...e) => {
   ha-switch {
     --ha-switch-checked-thumb-background-color: white;
     --ha-switch-checked-thumb-background-color-hover: white;
+    --ha-switch-checked-thumb-border-color: white;
+    --ha-switch-checked-thumb-border-color-hover: white;
     --ha-switch-checked-background-color: rgba(255, 255, 255, 0.54);
     --ha-switch-checked-background-color-hover: rgba(255, 255, 255, 0.54);
+    --ha-switch-checked-border-color: transparent;
+    --ha-switch-checked-border-color-hover: transparent;
   }
 `;
 function ct({ state: t, attributes: e }, i = !1) {
@@ -1357,6 +1361,8 @@ class $t extends rt {
       ? [
           `--ha-switch-checked-thumb-background-color: ${o};`,
           `--ha-switch-checked-thumb-background-color-hover: ${o};`,
+          `--ha-switch-checked-thumb-border-color: ${o};`,
+          `--ha-switch-checked-thumb-border-color-hover: ${o};`,
           `--ha-switch-checked-background-color: color-mix(in srgb, ${o} 54%, transparent);`,
           `--ha-switch-checked-background-color-hover: color-mix(in srgb, ${o} 54%, transparent);`,
         ].join(" ")

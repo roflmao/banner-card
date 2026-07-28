@@ -138,7 +138,11 @@ export default css`
   ha-switch {
     --ha-switch-checked-thumb-background-color: white;
     --ha-switch-checked-thumb-background-color-hover: white;
+    --ha-switch-checked-thumb-border-color: white;
+    --ha-switch-checked-thumb-border-color-hover: white;
     --ha-switch-checked-background-color: rgba(255, 255, 255, 0.54);
     --ha-switch-checked-background-color-hover: rgba(255, 255, 255, 0.54);
+    --ha-switch-checked-border-color: transparent;
+    --ha-switch-checked-border-color-hover: transparent;
   }
 `;
