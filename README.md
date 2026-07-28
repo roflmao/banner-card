@@ -1,5 +1,7 @@
 # Lovelace banner card fork
 
+**2026-07-28 Update**: Updated for Home Assistant 2026.7+ (Web Awesome component migration). `ha-switch` styling now uses the new `--ha-switch-*` tokens (the `--mdc-theme-secondary` token was removed in HA 2026.5), `ha-button` uses the new `size`/`appearance` API (the `dense` attribute is gone), `ha-icon-button` is sized via `--ha-icon-button-size`, and heading icons use `--mdc-icon-size` instead of the long-dead `--iron-icon-*` tokens.
+
 **2026-03-16 Update**: Updated for compatibility with latest Home Assistant frontend. Migrated from legacy `lit-element` v2 to `lit` v3, fixed the `ha-icon-button` component (HA removed the `icon` attribute in 2023.x), replaced deprecated `hass:` icon prefix with `mdi:`, fixed `ha-switch` event handling, added `getGridOptions()` for sections view support, and modernized the build toolchain (Rollup v4, ES module output).
 
 **2022-04-15 Update**: Home Assistant 2022.3 made some UI changes ([GitHub Issue](https://github.com/nervetattoo/banner-card/issues/139) | [HA Blog](https://www.home-assistant.io/blog/2022/03/02/release-20223/#ui-upgrades)) that broke previous versions of this integration. The solutions generally accepted in the GitHub issue was to make a number of changes manually which I wasn't interested, and @matteocorti had [submitted a yet to be merged PR](https://github.com/nervetattoo/banner-card/pull/140). This fork integrates those changes and can easily be installed via the HACS UI without any manual effort.
